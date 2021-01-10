@@ -1,0 +1,6 @@
+.vscode/
+
+/build/
+/app
+/oldlist.txt
+/hello.lox
