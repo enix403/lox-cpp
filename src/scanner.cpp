@@ -29,7 +29,6 @@ void Scanner::Setup() {
 void Scanner::AddToken(TokenType type) {
     string text(get_substring(source, start, next_unobserved));
     tokens.push_back(Token(type, text, line));
-    JumpOver();
 }
 
 bool Scanner::ExploreIfMatch(char expected) {
@@ -98,7 +97,6 @@ vector<Token>& Scanner::ScanAllTokens() {
                         if (next == '\n' || next == '\0') break;
                         ExploreNext();
                     }
-                    JumpOver();
                 } else {
                     AddToken(TokenType::SLASH);
                 }
@@ -113,7 +111,6 @@ vector<Token>& Scanner::ScanAllTokens() {
                         if (current == '"') {
                             string str{get_substring(source, start + 1, next_unobserved - 1)};
                             tokens.push_back(Token(TokenType::STRING, str, line));
-                            JumpOver();
                             break;
                         }
                     } else {
@@ -141,11 +138,9 @@ vector<Token>& Scanner::ScanAllTokens() {
             case '\r':
             case '\t':
                 // Ignore whitespace.
-                JumpOver();
                 break;
 
             case '\n':
-                JumpOver();
                 line++;
                 break;
 
@@ -188,13 +183,13 @@ vector<Token>& Scanner::ScanAllTokens() {
                         ident_type = TokenType::IDENTIFIER;
                     }
                     tokens.push_back(Token(ident_type, identifier, line));
-                    JumpOver();
                 } else {
                     ErrorHandler::ReportError(line, "Unexpected Character\n");
                 }
 
                 break;
         }
+        JumpOver();
     }
 
     tokens.push_back(Token(TokenType::T_EOF, "--EOF--", line));
