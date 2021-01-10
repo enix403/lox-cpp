@@ -117,7 +117,7 @@ vector<Token>& Scanner::ScanAllTokens() {
                             break;
                         }
                     } else {
-                        ErrorHandler::ReportError(line, "Unterminated string");
+                        ErrorHandler::ReportError(line, "Unterminated string\n");
                         break;
                     }
                 }
@@ -125,16 +125,16 @@ vector<Token>& Scanner::ScanAllTokens() {
                 break;
 
             case '!':
-                AddToken(ExploreIfMatch('=') ? TokenType::BANG_EQUAL : TokenType::BANG);
+                AddToken((ExploreIfMatch('=')) ? TokenType::BANG_EQUAL : TokenType::BANG);
                 break;
             case '=':
-                AddToken(ExploreIfMatch('=') ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
+                AddToken((ExploreIfMatch('=')) ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
                 break;
             case '<':
-                AddToken(ExploreIfMatch('=') ? TokenType::LESS_EQUAL : TokenType::LESS);
+                AddToken((ExploreIfMatch('=')) ? TokenType::LESS_EQUAL : TokenType::LESS);
                 break;
             case '>':
-                AddToken(ExploreIfMatch('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
+                AddToken((ExploreIfMatch('=')) ? TokenType::GREATER_EQUAL : TokenType::GREATER);
                 break;
 
             case ' ':
@@ -150,7 +150,7 @@ vector<Token>& Scanner::ScanAllTokens() {
                 break;
 
             default:
-
+                // handle digits (didn't want to write case '1', case '2', .....)
                 if (isdigit(ch)) {
                     char next = PeekNext();
                     // consume all digits afterward
@@ -175,7 +175,7 @@ vector<Token>& Scanner::ScanAllTokens() {
                     }
 
                     AddToken(TokenType::NUMBER);
-                } else if (is_alpha(ch)) {
+                } else if (is_alpha(ch)) {  // potential identifier or keyword
                     while (is_alphanumeric(PeekNext())) {
                         ExploreNext();
                     }
@@ -188,7 +188,7 @@ vector<Token>& Scanner::ScanAllTokens() {
                         ident_type = TokenType::IDENTIFIER;
                     }
                     tokens.push_back(Token(ident_type, identifier, line));
-
+                    JumpOver();
                 } else {
                     ErrorHandler::ReportError(line, "Unexpected Character\n");
                 }

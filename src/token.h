@@ -14,5 +14,7 @@ private:
 
 public:
     Token(TokenType type, string lexeme, int line);
-    inline string ToString() const { return "TKSTART(" + to_string((int)type) + ")::" + lexeme + "::TKEND"; }
+    inline string ToString() const { 
+        return "TKSTART(" + token_names.at(type) + ")::" + lexeme + "::TKEND"; 
+    }
 };

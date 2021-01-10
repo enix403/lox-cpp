@@ -24,6 +24,7 @@ private:
 public:
     void RunPrompt() const {
         string line;
+        cout << "Lox 0.0.1\n";
         while (true) {
             cout << ">> ";
             if (!getline(cin, line)) {
@@ -38,7 +39,6 @@ public:
         ifstream file(path);
         string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
         Run(content);
-        // cout << content;
     }
 };
 
