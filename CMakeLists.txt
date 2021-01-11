@@ -17,10 +17,23 @@ add_executable(
     "src/token.cpp"
     "src/error_handling.cpp"
     "src/keywords.cpp"
+    "src/ast_printer.cpp"
+    "src/expr.cpp"
     #add_file
 )
 
+add_executable(
+    exprtest
+
+    "src/test/test_expr.cpp"
+    "src/token.cpp"
+    "src/ast_printer.cpp"
+    "src/expr.cpp"
+)
+
+
 set_property(TARGET app PROPERTY CXX_STANDARD 17)
+set_property(TARGET exprtest PROPERTY CXX_STANDARD 17)
 
 # target_link_libraries(cppopengl glfw)
 # target_link_libraries(cppopengl glad)

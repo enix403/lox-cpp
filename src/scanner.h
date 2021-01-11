@@ -21,7 +21,6 @@ private:
 
     inline bool IsAtEnd() const { return next_unobserved >= len_source; }
     inline bool IsInRange(int index) const { return index < len_source; }
-    inline void JumpOver() {start = next_unobserved;}
 
     void AddToken(TokenType type);
 

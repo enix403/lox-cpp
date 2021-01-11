@@ -17,4 +17,8 @@ public:
     inline string ToString() const { 
         return "TKSTART(" + token_names.at(type) + ")::" + lexeme + "::TKEND"; 
     }
+
+    inline const string& GetLexeme() {return lexeme;}
+    inline const TokenType& GetType() {return type;}
+    inline int GetLine() {return line;}
 };

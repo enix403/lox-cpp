@@ -26,7 +26,7 @@ enum class TokenType {
     LESS,
     LESS_EQUAL,
 
-    // Literals.
+    // LiteralExprs.
     IDENTIFIER,
     STRING,
     NUMBER,

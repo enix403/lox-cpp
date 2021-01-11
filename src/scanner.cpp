@@ -113,6 +113,9 @@ vector<Token>& Scanner::ScanAllTokens() {
                             tokens.push_back(Token(TokenType::STRING, str, line));
                             break;
                         }
+						else if (current == '\n') {
+							line++;
+						}
                     } else {
                         ErrorHandler::ReportError(line, "Unterminated string\n");
                         break;
@@ -189,7 +192,7 @@ vector<Token>& Scanner::ScanAllTokens() {
 
                 break;
         }
-        JumpOver();
+        start = next_unobserved;
     }
 
     tokens.push_back(Token(TokenType::T_EOF, "--EOF--", line));
