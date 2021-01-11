@@ -19,6 +19,7 @@ add_executable(
     "src/keywords.cpp"
     "src/ast_printer.cpp"
     "src/expr.cpp"
+    "src/parser.cpp"
     #add_file
 )
 
@@ -34,9 +35,3 @@ add_executable(
 
 set_property(TARGET app PROPERTY CXX_STANDARD 17)
 # set_property(TARGET exprtest PROPERTY CXX_STANDARD 17)
-
-# target_link_libraries(cppopengl glfw)
-# target_link_libraries(cppopengl glad)
-# target_link_libraries(cppopengl spdlog)
-
-# file(COPY assets DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})

@@ -28,11 +28,11 @@ public:
 
 struct BinaryExpr : public Expr {
 public:
-    const Expr* left_operand;
+    Expr* left_operand;
     const Token* oper;
-    const Expr* right_operand;
+    Expr* right_operand;
 
-    BinaryExpr(const Expr* left_operand, const Token* oper, const Expr* right_operand) {
+    BinaryExpr(Expr* left_operand, const Token* oper, Expr* right_operand) {
         this->left_operand = left_operand;
         this->oper = oper;
         this->right_operand = right_operand;
@@ -44,9 +44,9 @@ public:
 struct UnaryExpr : public Expr {
 public:
     const Token* oper;
-    const Expr* operand;
+    Expr* operand;
 
-    UnaryExpr(const Token* oper, const Expr* operand) {
+    UnaryExpr(const Token* oper, Expr* operand) {
         this->oper = oper;
         this->operand = operand;
     }
@@ -57,26 +57,21 @@ public:
 
 struct LiteralExpr : public Expr {
 public:
-    const Token* val_token;
+    const TokenType literal_type;
+    const string& lexeme;
 
-    LiteralExpr(const Token* val_token) {
-        this->val_token = val_token;
-    }
+    LiteralExpr(const TokenType type, const string& lexeme) : literal_type(type), lexeme(lexeme) {}
 
     void Accept(ExprVisitor *visitor, void* result) override;
 
-
-    static LiteralExpr LIT_FALSE;
-    static LiteralExpr LIT_TRUE;
-    static LiteralExpr LIT_NIL;
 };
 
 
 struct GroupingExpr : public Expr {
 public:
-    const Expr* expression;
+    Expr* expression;
 
-    GroupingExpr(const Expr* expression) {
+    GroupingExpr(Expr* expression) {
         this->expression = expression;
     }
 

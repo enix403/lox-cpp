@@ -26,26 +26,26 @@ enum class TokenType: short {
     LESS,
     LESS_EQUAL,
 
-    // LiteralExprs.
+    // Literal.
     IDENTIFIER,
     STRING,
     NUMBER,
 
     // Keywords.
+    FALSE,
+    TRUE,
+    NIL,
     AND,
     CLASS,
     ELSE,
-    FALSE,
     FUN,
     FOR,
     IF,
-    NIL,
     OR,
     PRINT,
     RETURN,
     SUPER,
     THIS,
-    TRUE,
     VAR,
     WHILE,
 

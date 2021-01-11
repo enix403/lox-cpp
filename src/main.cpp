@@ -4,8 +4,10 @@
 #include <vector>
 
 #include "token.h"
-#include "error_handling.h"
 #include "scanner.h"
+#include "parser.h"
+#include "error_handling.h"
+#include "ast_printer.h"
 
 using namespace std;
 
@@ -15,10 +17,21 @@ private:
         Scanner scanner(source);
         vector<Token>& tokens = scanner.ScanAllTokens();
 
-        for (int i = 0; i < tokens.size(); i++) {
-            const Token& token = tokens[i];
-            cout << token.ToString() << "\n";
+        // for (int i = 0; i < tokens.size(); i++) {
+            // const Token& token = tokens[i];
+            // cout << token.ToString() << "\n";
+        // }
+
+        Parser parser(tokens);
+        Expr* expression = parser.Parse();
+
+        if (ErrorHandler::HadError()) {
+            return;
         }
+
+        // print using ast printer
+        AstPrinter printer;
+        cout << printer.Print(expression) << '\n'; 
     }
 
 public:
@@ -31,6 +44,7 @@ public:
                 break;
             }
             this->Run(line);
+            ErrorHandler::ResetHadError();
         }
         cout << "\nExiting...\n";
     }

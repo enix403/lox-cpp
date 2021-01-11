@@ -25,11 +25,11 @@ int main() {
     Expr* expresssion = new BinaryExpr(
         new UnaryExpr(
             new Token(TokenType::MINUS, "-", 1),
-            new LiteralExpr(new Token(TokenType::NUMBER, "123", 1))
+            new LiteralExpr(TokenType::NUMBER, "123")
         ),
         new Token(TokenType::STAR, "*", 1),
         new GroupingExpr(
-            new LiteralExpr(new Token(TokenType::NUMBER, "45.34", 1))
+            new LiteralExpr(TokenType::NUMBER, "45.34")
         )
     );
 

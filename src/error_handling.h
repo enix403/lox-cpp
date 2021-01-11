@@ -9,6 +9,9 @@ private:
 
 public:
     inline static bool HadError() {return had_error;}
-    static void ReportError(int line, const string& msg);
+    static void Report(int line, const string& where, const string& msg);
+    static void Error(int line, const string& msg);
+
+    inline static void ResetHadError() { had_error = false; }
 };
 

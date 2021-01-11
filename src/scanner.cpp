@@ -117,7 +117,7 @@ vector<Token>& Scanner::ScanAllTokens() {
 							line++;
 						}
                     } else {
-                        ErrorHandler::ReportError(line, "Unterminated string\n");
+                        ErrorHandler::Error(line, "Unterminated string");
                         break;
                     }
                 }
@@ -187,7 +187,7 @@ vector<Token>& Scanner::ScanAllTokens() {
                     }
                     tokens.push_back(Token(ident_type, identifier, line));
                 } else {
-                    ErrorHandler::ReportError(line, "Unexpected Character\n");
+                    ErrorHandler::Error(line, "Unexpected Character " + std::to_string(ch));
                 }
 
                 break;
