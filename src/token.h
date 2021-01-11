@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 class Token {
 private:
     int line;
@@ -14,11 +13,12 @@ private:
 
 public:
     Token(TokenType type, string lexeme, int line);
-    inline string ToString() const { 
-        return "TKSTART(" + token_names.at(type) + ")::" + lexeme + "::TKEND"; 
+    inline string ToString() const {
+        return "TKSTART(" + _TOKEN_NAMES.at(type) + ")::" + lexeme + "::TKEND";
     }
 
-    inline const string& GetLexeme() {return lexeme;}
-    inline const TokenType& GetType() {return type;}
-    inline int GetLine() {return line;}
+    inline const string& GetLexeme() const { return lexeme; }
+    inline const TokenType& GetType() const { return type; }
+    inline int GetLine() const { return line; }
 };
+

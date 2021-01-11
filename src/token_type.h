@@ -2,7 +2,7 @@
 #include <string>
 #include <unordered_map>
 
-enum class TokenType {
+enum class TokenType: short {
     // Single-character tokens.
     LEFT_PAREN,
     RIGHT_PAREN,
@@ -54,7 +54,7 @@ enum class TokenType {
     T_EOF,
 };
 
-const std::unordered_map<TokenType, std::string> token_names {
+const std::unordered_map<TokenType, std::string> _TOKEN_NAMES {
     {TokenType::LEFT_PAREN, "LEFT_PAREN"},
     {TokenType::RIGHT_PAREN, "RIGHT_PAREN"},
     {TokenType::LEFT_BRACE, "LEFT_BRACE"},

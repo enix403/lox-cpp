@@ -14,6 +14,7 @@ string AstPrinter::Parenthesize(const string& name, Expr* exprs[], int num_expr)
     }
     res += ')';
 
+
     return res;
 }
 
@@ -41,6 +42,3 @@ void AstPrinter::VisitGroupingExpr(GroupingExpr* expr, void* result) {
     Expr* exprs[1] = {expr->expression};
     *res = Parenthesize("group", exprs, 1);
 }
-#if 0
-
-#endif

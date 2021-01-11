@@ -5,39 +5,34 @@
 
 #include "token.h"
 
-class BinaryExpr;
-class UnaryExpr;
-class LiteralExpr;
-class GroupingExpr;
+struct BinaryExpr;
+struct UnaryExpr;
+struct LiteralExpr;
+struct GroupingExpr;
 
 class ExprVisitor {
 public:
-    virtual void VisitBinaryExpr(BinaryExpr *element, void* result) = 0;
-    virtual void VisitUnaryExpr(UnaryExpr *element, void* result) = 0;
-    virtual void VisitLiteralExpr(LiteralExpr *element, void* result) = 0;
-    virtual void VisitGroupingExpr(GroupingExpr *element, void* result) = 0;
+    virtual void VisitBinaryExpr(BinaryExpr *expr, void* result) = 0;
+    virtual void VisitUnaryExpr(UnaryExpr *expr, void* result) = 0;
+    virtual void VisitLiteralExpr(LiteralExpr *expr, void* result) = 0;
+    virtual void VisitGroupingExpr(GroupingExpr *expr, void* result) = 0;
 };
 
 
-class Expr {
+struct Expr {
 public:
     virtual ~Expr() {}
     virtual void Accept(ExprVisitor *visitor, void* result) = 0;
 };
 
 
-class BinaryExpr : public Expr {
-    /**
-   * Note that we're calling `visitConcreteComponentA`, which matches the
-   * current class name. This way we let the visitor know the class of the
-   * component it works with.
-   */
+struct BinaryExpr : public Expr {
 public:
-    Expr* left_operand;
-    Token* oper;
-    Expr* right_operand;
+    const Expr* left_operand;
+    const Token* oper;
+    const Expr* right_operand;
 
-    BinaryExpr(Expr* left_operand, Token* oper, Expr* right_operand) {
+    BinaryExpr(const Expr* left_operand, const Token* oper, const Expr* right_operand) {
         this->left_operand = left_operand;
         this->oper = oper;
         this->right_operand = right_operand;
@@ -46,16 +41,12 @@ public:
     void Accept(ExprVisitor *visitor, void* result) override;
 };
 
-class UnaryExpr : public Expr {
-    /**
-   * Same here: visitConcreteComponentB => ConcreteComponentB
-   */
+struct UnaryExpr : public Expr {
 public:
+    const Token* oper;
+    const Expr* operand;
 
-    Token* oper;
-    Expr* operand;
-
-    UnaryExpr(Token* oper, Expr* operand) {
+    UnaryExpr(const Token* oper, const Expr* operand) {
         this->oper = oper;
         this->operand = operand;
     }
@@ -65,20 +56,27 @@ public:
 
 
 struct LiteralExpr : public Expr {
-    Token* val_token;
+public:
+    const Token* val_token;
 
-    LiteralExpr(Token* val_token) {
+    LiteralExpr(const Token* val_token) {
         this->val_token = val_token;
     }
 
     void Accept(ExprVisitor *visitor, void* result) override;
+
+
+    static LiteralExpr LIT_FALSE;
+    static LiteralExpr LIT_TRUE;
+    static LiteralExpr LIT_NIL;
 };
 
 
 struct GroupingExpr : public Expr {
-    Expr* expression;
+public:
+    const Expr* expression;
 
-    GroupingExpr(Expr* expression) {
+    GroupingExpr(const Expr* expression) {
         this->expression = expression;
     }
 
