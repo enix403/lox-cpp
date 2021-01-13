@@ -7,7 +7,8 @@
 #include "scanner.h"
 #include "parser.h"
 #include "error_handling.h"
-#include "ast_printer.h"
+// #include "ast_printer.h"
+#include "interpreter.h"
 
 using namespace std;
 
@@ -30,8 +31,8 @@ private:
         }
 
         // print using ast printer
-        AstPrinter printer;
-        cout << printer.Print(expression) << '\n'; 
+        Interpreter printer;
+        cout << printer.Interpret(expression) << '\n'; 
     }
 
 public:
