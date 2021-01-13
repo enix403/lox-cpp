@@ -50,7 +50,7 @@ enum class TokenType: short {
     WHILE,
 
     // EOF is a reserved word in C++
-    // Prefixed with a (random) T
+    // Prefixed it with a (random) T
     T_EOF,
 };
 

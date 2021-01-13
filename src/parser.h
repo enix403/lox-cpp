@@ -1,47 +1,49 @@
 #pragma once
 
 #include <vector>
-#include <string>
 #include <initializer_list>
+#include <memory>
+#include <string>
 
 #include "token.h"
 #include "expr.h"
 
-using namespace std;
 
 class Parser {
 private:
-
     const vector<Token>& tokens;
-    int current = 0;
+    int next_token_index = 0;
 
-    inline const Token& Previous() const { return tokens[current - 1]; }
-    inline const Token& Peek() const { return tokens[current]; }
-    inline bool IsAtEnd() const { return Peek().GetType() == TokenType::T_EOF; }
+    inline const Token& Peek() const { return tokens[next_token_index]; }
+    inline const Token& Previous() const { return tokens[next_token_index - 1]; }
+    inline bool CheckNext(TokenType type) const { return Peek().GetType() == type; }
+    inline bool IsAtEnd() const { return CheckNext(TokenType::T_EOF); }
+    
     inline const Token& Advance() {
-        if (!IsAtEnd()) current++;
-        return Previous();
+        next_token_index++;
+        return tokens[next_token_index - 1];
     }
 
-    inline bool Check(const TokenType type) const {
-        if (IsAtEnd()) return false;
-        return Peek().GetType() == type;
-    }
+    bool MatchNext(const std::initializer_list<TokenType> types);
+    bool MatchNext(TokenType type);
 
-    bool Match(const std::initializer_list<TokenType> types);
-    Expr* Rule_Expression();
-    Expr* Rule_Equality();
-    Expr* Rule_Comparison();
-    Expr* Rule_Term();
-    Expr* Rule_Factor();
-    Expr* Rule_Unary();
-    Expr* Rule_Primary();
 
+    Expr* RuleMatch_Primary();
+    Expr* RuleMatch_Unary();
+    Expr* RuleMatch_Factor();
+    Expr* RuleMatch_Term();
+    Expr* RuleMatch_UnequalComparison();
+    Expr* RuleMatch_EqualComparison();
+    Expr* RuleMatch_Expression();
+    
+
+    // bool Consume(TokenType type);
     const Token& Consume(TokenType type, const string& msg);
-
     void Syncronize();
 
 public:
-    Parser(vector<Token>& tokens) : tokens(tokens) {}
+    Parser(const vector<Token>& tokens) : tokens(tokens) {}
+
     Expr* Parse();
+    
 };

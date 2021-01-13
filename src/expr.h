@@ -58,12 +58,16 @@ public:
 struct LiteralExpr : public Expr {
 public:
     const TokenType literal_type;
-    const string& lexeme;
+    const string lexeme;
 
-    LiteralExpr(const TokenType type, const string& lexeme) : literal_type(type), lexeme(lexeme) {}
+    LiteralExpr(const TokenType type, const string lexeme) : literal_type(type), lexeme(lexeme) {}
 
     void Accept(ExprVisitor *visitor, void* result) override;
 
+
+    static LiteralExpr* LIT_FALSE;
+    static LiteralExpr* LIT_TRUE;
+    static LiteralExpr* LIT_NIL;
 };
 
 

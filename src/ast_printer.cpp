@@ -30,11 +30,12 @@ void AstPrinter::VisitUnaryExpr(UnaryExpr* expr, void* result) {
 
 void AstPrinter::VisitLiteralExpr(LiteralExpr* expr, void* result) {
     string* res = ((string*)result);
-    if (expr->literal_type == TokenType::NIL) {
-        *res = "nil";
-    } else {
-        *res = expr->lexeme;
-    }
+    // if (expr->literal_type == TokenType::NIL) {
+        // *res = "nil";
+    // } else {
+        // *res = expr->lexeme;
+    // }
+    *res = expr->lexeme;
 }
 void AstPrinter::VisitGroupingExpr(GroupingExpr* expr, void* result) {
     string* res = ((string*)result);

@@ -20,6 +20,7 @@ add_executable(
     "src/ast_printer.cpp"
     "src/expr.cpp"
     "src/parser.cpp"
+    "src/interpreter.cpp"
     #add_file
 )
 
